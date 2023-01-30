@@ -23,5 +23,8 @@ class City extends Model
     {
         return $this->hasMany(\App\Models\State::class);
     }
+    public function directory(){
+        return $this->belongsTo(Directory::class);
+    }
 
 }

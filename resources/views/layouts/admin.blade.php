@@ -253,6 +253,16 @@
                             </div>
                         </div>
                     </a>
+                    <a href="{{ route('admin.directory.index') }}" class="col-12 px-0">
+                        <div class="col-12 item px-0 d-flex">
+                            <div style="width: 50px" class="px-3 text-center">
+                                <span class="fal fa-flag font-2"> </span>
+                            </div>
+                            <div style="width: calc(100% - 50px)" class="px-2">
+                                إدارة الدليل المجاني
+                            </div>
+                        </div>
+                    </a>
                     <hr>
                     <span class="text-muted px-3">ادارة الدول والعملات والمدن</span>
                     <hr>

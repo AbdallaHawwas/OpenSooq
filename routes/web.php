@@ -47,6 +47,7 @@ use App\Http\Controllers\HelpCenterController;
 use App\Http\Controllers\VoucherController;
 use App\Models\HelpCenter;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\DirectoryController;
 
 Route::post('api/save-token', [FCMController::class, 'index']);
 
@@ -139,6 +140,7 @@ Route::prefix('admin')->middleware(['auth','ActiveAccount', 'IsAdmin'])->name('a
     Route::middleware(['CheckRole:ADMIN'])->group(function () {
         
         Route::resource("help-center",HelpCenterController::class);
+        Route::resource("directory",DirectoryController::class);
         Route::resource("voucher",VoucherController::class);
         Route::resource('sliders', SliderController::class);
         Route::resource('announcements', AnnouncementController::class);
