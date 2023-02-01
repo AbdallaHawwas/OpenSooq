@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Directory;
+use App\Models\City;
 use Illuminate\Support\Facades\Validator;
 
 class DirectoryController extends Controller
@@ -11,7 +12,8 @@ class DirectoryController extends Controller
     public function index(){
         $individuals = Directory::where("type","1")->get();
         $companies = Directory::where("type","2")->get();
-        return view("admin.directory.index",compact("individuals","companies"));
+        $cities = City::all();
+        return view("admin.directory.index",compact("individuals","companies","cities"));
     }
 
     public function frontCompaniesIndex(){
@@ -38,7 +40,7 @@ class DirectoryController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-        // dd($data);
+
         $rules = [
             "phone" => 'required|numeric',
             "type" => 'required',
@@ -72,12 +74,6 @@ class DirectoryController extends Controller
         return redirect()->route('admin.directory.index');
     }
 
-    public function show($id){
-        $provider = Directory::findOrFail($id);
-        $type = $provider->type == 1 ? "individual" : "company";
-        return view("admin.directory.show",compact("provider,type"));
-    }
-
     public function frontShow($id){
         $provider = Directory::findOrFail($id);
         $type = $provider->type == 1 ? "individual" : "company";
@@ -96,9 +92,9 @@ class DirectoryController extends Controller
 
     public function update(Request $request,$id){
         $data = $request->all();
+
         $rules = [
             "phone" => 'required|numeric',
-            "city" => 'required',
             "type" => 'required',
             "img" => 'nullable|image'
         ];
@@ -122,10 +118,9 @@ class DirectoryController extends Controller
             "address" => json_encode($langAttr["address"]),
             'img'=> $image,
             'phone'=>$request->phone,
-            "city" => $request->city,
+            "city" => $request->City,
             "type"=>$request->type
         ]);
-        
         flash()->success('تم تعديل عنصر الدليل المجاني بنجاح', 'عملية ناجحة');
         return redirect()->back();
     }

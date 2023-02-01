@@ -61,7 +61,7 @@
                         <tr>
                             <td>{{$count++}}</td>
 
-                            <td>{{-- json_decode($company->name,true)[app()->getLocale()]--}}</td>
+                            <td>{{ json_decode($company->name,true)[app()->getLocale()]}}</td>
                             <td>{{$company->city . " - " . $company->city->country}}</td>
                             <td>{{$company->phone}}</td>
                             <td>@if($company->img)<img src="{{$company->img}}" width="20" height="20" alt="">@endif</td>
@@ -120,8 +120,8 @@
                         <tr>
                             <td>{{$countind++}}</td>
 
-                            <td>{{-- json_decode($company->name,true)[app()->getLocale()]--}}</td>
-                            <td>{{--$ind->city . " - " . $ind->city->country--}}</td>
+                            <td>{{ json_decode($ind->name,true)[app()->getLocale()]}}</td>
+                            <td>{{-- $ind->city . " - "  /*$ind->city->country*/ --}}</td>
                             <td>{{$ind->phone}}</td>
                             <td>@if($ind->img)<img src="{{$ind->img}}" width="20" height="20" alt="">@endif</td>
 
@@ -145,6 +145,11 @@
                 </div>
             </div>
         </div>
+        <style>
+            .fade:not(.show) {
+                display: none;
+            }
+        </style>
 	</div>
 </div>
 @endsection

@@ -4,13 +4,13 @@
 	<div class="col-12 col-lg-12 p-0 ">
 
 
-		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.voucher.update',$provider->id)}}">
+		<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.directory.update',$provider->id)}}">
 		@csrf
-
+        @method('PUT')
 		<div class="col-12 col-lg-8 p-0 main-box">
 			<div class="col-12 px-0">
 				<div class="col-12 px-3 py-3">
-				 	<span class="fas fa-info-circle"></span>	إضافة جديد
+				 	<span class="fas fa-info-circle"></span> تعديل عنصر الدلبل المجاني
 				</div>
 				<div class="col-12 divider" style="min-height: 2px;"></div>
 			</div>
@@ -47,7 +47,7 @@
                                         الوصف
                                     </div>
                                     <div class="col-12 pt-3 ">
-                                        <input type="text" name="{{ $key }}[description]" required class="form-control" value="{{json_decode($provider->description,true)[$key]}}>
+                                        <input type="text" name="{{ $key }}[description]" required class="form-control" value="{{json_decode($provider->description,true)[$key]}}" >
                                     </div>
                                 </div>
                                 <div class="col-12 p-2">
@@ -55,7 +55,7 @@
                                         العنوان
                                     </div>
                                     <div class="col-12 pt-3">
-                                        <input type="text" name="{{ $key }}[address]" required class="form-control" value="{{json_decode($provider->address,true)[$key]}}>
+                                        <input type="text" name="{{ $key }}[address]" required class="form-control" value="{{json_decode($provider->address,true)[$key]}}">
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 الصورة
                             </div>
                             <div class="pt-3 col-6">
-                                <input type="file" name="img" required  id="img" class="form-control" accept="image/png, image/jpg, image/jpeg, image/webp">
+                                <input type="file" name="img"  id="img" class="form-control" accept="image/png, image/jpg, image/jpeg, image/webp">
                             </div>
                         </div>
                     </div>

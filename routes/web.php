@@ -86,7 +86,14 @@ Route::group(
                 Route::get('show/{store}', [FrontStoreController::class,'show'])->name('stores.show');
                 Route::resource('announcements', FrontAnnouncementController::class)->only('index', 'show');
             });
-
+            Route::prefix('directory')->group(function () {
+                Route::get('companies',[DirectoryController::class,'frontCompaniesIndex']);
+                Route::get('companies/create',[DirectoryController::class,'frontCompaniesCreate']);
+                Route::get('individuals',[DirectoryController::class,'frontIndividualsIndex']);
+                Route::get('individuals/create',[DirectoryController::class,'frontIndividualsCreate']);
+                Route::get('edit/{id}',[DirectoryController::class,'frontEdit']);
+                Route::get('show/{id}',[DirectoryController::class,'frontShow']);
+            });
             // Route::get('announcements/{announcement}', [FrontController::class,'announcement'])->name('announcement.show');
 
             Route::middleware(['auth'])->group(function () {
