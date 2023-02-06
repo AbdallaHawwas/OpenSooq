@@ -120,7 +120,7 @@
                                 </li>
                             @else
                                 <li class="nav-item pt-2"><a class="nav-link font-2"
-                                        href="{{ route('front.store.my_store') }}">{{ __('lang.OpenStore') }}</a></li>
+                                        href="{{ route('front.store.create') }}">{{ __('lang.OpenStore') }}</a></li>
                             @endif
                             <li class="nav-item pt-2"><a class="nav-link font-2" href="#"
                                     onclick="document.getElementById('logout-form').submit();">{{ __('lang.Logout') }}</a>

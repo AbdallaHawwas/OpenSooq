@@ -215,7 +215,30 @@ $(document).ready(function () {
 
 
 });
+const imagePreview = (imgInp,imgOut,rmIcon) => {
+    const fileIn = document.getElementById(imgInp),
+    fileOut = document.getElementById(imgOut),
+    removeIcon = document.getElementById(rmIcon);
 
+    fileOutOldVal = fileOut.src;  
+
+    removeIcon.onclick = ()=>{
+        fileOut.src = fileOutOldVal;
+        fileIn.value = '';
+    };
+    
+    const readUrl = event => {
+        if(event.files && event.files[0]) {
+            let reader = new FileReader();
+            reader.onload = event => fileOut.src = event.target.result;
+            reader.readAsDataURL(event.files[0]);
+            removeIcon.style.display = "unset";     
+        }
+    }
+    fileIn.onchange = function() {
+    readUrl(this);
+    }; 
+}
 
 
 

@@ -88,9 +88,9 @@ Route::group(
             });
             Route::prefix('directory')->group(function () {
                 Route::get('companies',[DirectoryController::class,'frontCompaniesIndex']);
-                Route::get('companies/create',[DirectoryController::class,'frontCompaniesCreate']);
+                Route::get('companies/create',[DirectoryController::class,'frontCompaniesCreate'])->name("store.create");
                 Route::get('individuals',[DirectoryController::class,'frontIndividualsIndex']);
-                Route::get('individuals/create',[DirectoryController::class,'frontIndividualsCreate']);
+                Route::get('individuals/create',[DirectoryController::class,'frontIndividualsCreate'])->name("individual.create");
                 Route::get('edit/{id}',[DirectoryController::class,'frontEdit']);
                 Route::get('show/{id}',[DirectoryController::class,'frontShow']);
             });
