@@ -62,7 +62,7 @@
                             <td>{{$count++}}</td>
 
                             <td>{{ json_decode($company->name,true)[app()->getLocale()]}}</td>
-                            <td>{{$company->city . " - " . $company->city->country}}</td>
+                            <td>{{$company->city }}</td>
                             <td>{{$company->phone}}</td>
                             <td>@if($company->img)<img src="{{$company->img}}" width="20" height="20" alt="">@endif</td>
 

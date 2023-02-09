@@ -137,8 +137,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(City::class);
     }
+    
     public function voucher()
     {
-        $this->hasMany(Voucher::class);   
+        return $this->hasMany(Voucher::class);   
+    }
+
+    public function directory(){
+        return $this->hasMany(Directory::class);   
     }
 }

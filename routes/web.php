@@ -48,6 +48,7 @@ use App\Http\Controllers\VoucherController;
 use App\Models\HelpCenter;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\DirectoryController;
+use App\Http\Controllers\PayPalController;
 
 Route::post('api/save-token', [FCMController::class, 'index']);
 
@@ -87,11 +88,11 @@ Route::group(
                 Route::resource('announcements', FrontAnnouncementController::class)->only('index', 'show');
             });
             Route::prefix('directory')->group(function () {
-                Route::get('companies',[DirectoryController::class,'frontCompaniesIndex']);
-                Route::get('companies/create',[DirectoryController::class,'frontCompaniesCreate'])->name("store.create");
-                Route::get('individuals',[DirectoryController::class,'frontIndividualsIndex']);
+                Route::get('/stores',[DirectoryController::class,'frontCompaniesIndex'])->name("directory.companies");
+                Route::get('/individuals',[DirectoryController::class,'frontIndividualsIndex'])->name("directory.individuals");
+                Route::get('stores/create',[DirectoryController::class,'frontCompaniesCreate'])->name("store.create");
                 Route::get('individuals/create',[DirectoryController::class,'frontIndividualsCreate'])->name("individual.create");
-                Route::get('edit/{id}',[DirectoryController::class,'frontEdit']);
+                Route::get('edit/{id}',[DirectoryController::class,'frontEdit'])->name("directory.edit");
                 Route::get('show/{id}',[DirectoryController::class,'frontShow']);
             });
             // Route::get('announcements/{announcement}', [FrontController::class,'announcement'])->name('announcement.show');
@@ -224,3 +225,9 @@ Route::controller(FrontController::class)->group(function () {
     // Route::get('blog', 'blog')->name('blog');
     // Route::post('contact', 'contact_post')->name('contact-post');
 });
+
+
+Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');

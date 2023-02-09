@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Directory;
 use App\Models\City;
+use App\Models\Store;
 use Illuminate\Support\Facades\Validator;
 
 class DirectoryController extends Controller
@@ -45,34 +46,45 @@ class DirectoryController extends Controller
         $rules = [
             "phone" => 'required|numeric',
             "type" => 'required',
-            "img" => 'nullable|image'
+            "img" => 'nullable|image',
+            "cover" => 'nullable|image',
+            "category" => 'nullable',
+            "address" => 'nullable',
+            "social-links" => 'nullable',
         ];
         foreach (config("laravellocalization.supportedLocales") as $key => $lang) {
             // Rules
-            $rules["$key.name"] = "required|string|max:255";
-            $rules["$key.description"] = "required|string|max:255";
-            $rules["$key.address"] = "required|string|max:255";
+            $rules["$key.name"] = "nullable|string|max:255";
+            $rules["$key.description"] = "nullable|string|max:255";
+            $rules["$key.address"] = "nullable|string|max:255";
             // Lang
-            $langAttr["name"][$key] = $data[$key]['name'];
-            $langAttr["description"][$key] = $data[$key]['description'];
-            $langAttr["address"][$key] = $data[$key]['address'];
+            $langAttr["name"][$key] = $data[$key]['name'] ?? null;
+            $langAttr["description"][$key] = $data[$key]['description'] ?? null;
+            $langAttr["address"][$key] = $data[$key]['address'] ?? null;
         }
         Validator::validate($data,$rules);
         $image = $request->img ? $request->img->hashName() : null;
-        $image ? $request->img->storeAs('/storage/uploads/directory',$image): "";
+        $image ? $request->img->storeAs('/public/uploads/directory',$image): "";
+
+        $cover = $request->cover ? $request->cover->hashName() : null;
+        $cover ? $request->cover->storeAs('/public/uploads/directory',$cover): "";
 
         Directory::create([
             "name" => json_encode($langAttr["name"]),
             "description" => json_encode($langAttr["description"]),
             "address" => json_encode($langAttr["address"]),
+            "social-links" => json_encode($request["social-links"]),
             'img'=> $image,
+            'cover'=> $cover,
             'phone'=>$request->phone,
             "city" => $request->City,
-            "type"=>$request->type
+            "type"=>$request->type,
+            "active"=> $request->active ?? 0,
+            "user_id" => $request->user_id
         ]);
         
         flash()->success('تم إضافة عنصر الدليل المجاني بنجاح', 'عملية ناجحة');
-        return redirect()->route('admin.directory.index');
+        return redirect()->back();
     }
 
     public function frontShow($id){
@@ -87,8 +99,24 @@ class DirectoryController extends Controller
     }
 
     public function frontEdit($id){
-        $provider = Directory::findOrFail($id);
-        return view("front.directory.edit",compact("provider"));
+        $directory = Directory::findOrFail($id);
+        // Default language 
+        $lang = app()->getlocale();
+        $names =json_decode($directory->name,true); 
+        // if Default has no value
+        if($names[$lang] == ""){
+            foreach ($names as $name) {
+                if($name != ""){ 
+                    $lang = $name; 
+                    break;
+                }
+            }
+        }
+        if($directory->type == 1){
+            return view("front.directory.IndividualsEdit",compact("directory","lang"));
+        }else{
+            return view("front.directory.CompaniesEdit",compact("directory","lang"));
+        }
     }
 
     public function update(Request $request,$id){
@@ -97,30 +125,41 @@ class DirectoryController extends Controller
         $rules = [
             "phone" => 'required|numeric',
             "type" => 'required',
-            "img" => 'nullable|image'
+            "img" => 'nullable|image',
+            "cover" => 'nullable|image',
+            "category" => 'nullable',
+            "address" => 'nullable',
+            "social-links" => 'nullable',
         ];
         foreach (config("laravellocalization.supportedLocales") as $key => $lang) {
             // Rules
-            $rules["$key.name"] = "required|string|max:255";
-            $rules["$key.description"] = "required|string|max:255";
-            $rules["$key.address"] = "required|string|max:255";
+            $rules["$key.name"] = "nullable|string|max:255";
+            $rules["$key.description"] = "nullable|string|max:255";
+            $rules["$key.address"] = "nullable|string|max:255";
             // Lang
-            $langAttr["name"][$key] = $data[$key]['name'];
-            $langAttr["description"][$key] = $data[$key]['description'];
-            $langAttr["address"][$key] = $data[$key]['address'];
+            $langAttr["name"][$key] = $data[$key]['name'] ?? null;
+            $langAttr["description"][$key] = $data[$key]['description'] ?? null;
+            $langAttr["address"][$key] = $data[$key]['address'] ?? null;
         }
         Validator::validate($data,$rules);
         $image = $request->img ? $request->img->hashName() : null;
-        $image ? $request->img->storeAs('/storage/uploads/directory',$image): "";
+        $image ? $request->img->storeAs('/public/uploads/directory',$image): "";
+
+        $cover = $request->cover ? $request->cover->hashName() : null;
+        $cover ? $request->cover->storeAs('/public/uploads/directory',$cover): "";
 
         Directory::where("id",$id)->update([
             "name" => json_encode($langAttr["name"]),
             "description" => json_encode($langAttr["description"]),
             "address" => json_encode($langAttr["address"]),
+            "social-links" => json_encode($request["social-links"]),
             'img'=> $image,
+            'cover'=> $cover,
             'phone'=>$request->phone,
             "city" => $request->City,
-            "type"=>$request->type
+            "type"=>$request->type,
+            "active"=> $request->active ?? 0,
+            "user_id" => $request->user_id
         ]);
         flash()->success('تم تعديل عنصر الدليل المجاني بنجاح', 'عملية ناجحة');
         return redirect()->back();
