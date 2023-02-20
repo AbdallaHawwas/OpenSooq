@@ -45,10 +45,10 @@
 
                 <li class="nav-item pt-2 position-relative">
                     <a class="nav-link dropdown-toggle font-2" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">{{ __('lang.FreeGuide') }}</a>
+                    aria-expanded="false">{{ __('lang.FreeDirectory') }}</a>
                     <ul class="dropdown-menu text-center">
-                        <li class="my-3"><a href="{{route("front.directory.companies")}}">الشركات</a></li>
-                        <li class="my-3"><a href="{{route("front.directory.individuals")}}">الأفراد</a></li>
+                        <li class="my-3"><a href="{{route("front.directory.companies")}}">{{__("lang.companies")}}</a></li>
+                        <li class="my-3"><a href="{{route("front.directory.individuals")}}">{{__("lang.individuals")}}</a></li>
                     </ul>
                 </li>
 

@@ -21,7 +21,7 @@ class Directory extends Model
     ];
     
     public function city(){
-        return $this->hasOne(City::class);
+        return $this->hasOne(City::class, 'city');
     }
 
     public function user(){

@@ -50,7 +50,7 @@ class DirectoryController extends Controller
             "cover" => 'nullable|image',
             "category" => 'nullable',
             "address" => 'nullable',
-            "social-links" => 'nullable',
+            "social" => 'nullable',
         ];
         foreach (config("laravellocalization.supportedLocales") as $key => $lang) {
             // Rules
@@ -73,7 +73,7 @@ class DirectoryController extends Controller
             "name" => json_encode($langAttr["name"]),
             "description" => json_encode($langAttr["description"]),
             "address" => json_encode($langAttr["address"]),
-            "social-links" => json_encode($request["social-links"]),
+            "social" => json_encode($request["social"]),
             'img'=> $image,
             'cover'=> $cover,
             'phone'=>$request->phone,
@@ -90,7 +90,7 @@ class DirectoryController extends Controller
     public function frontShow($id){
         $provider = Directory::findOrFail($id);
         $type = $provider->type == 1 ? "individual" : "company";
-        return view("front.directory.show",compact("provider,type"));
+        return view("front.directory.show",compact("provider","type"));
     }
 
     public function edit($id){
@@ -100,13 +100,13 @@ class DirectoryController extends Controller
 
     public function frontEdit($id){
         $directory = Directory::findOrFail($id);
-        // Default language 
+            // Default language 
         $lang = app()->getlocale();
         $names =json_decode($directory->name,true); 
         // if Default has no value
-        if($names[$lang] == ""){
-            foreach ($names as $name) {
-                if($name != ""){ 
+        if($names[$lang] == null){
+            foreach ($names as $name => $val) {
+                if($val != null){ 
                     $lang = $name; 
                     break;
                 }
@@ -129,7 +129,7 @@ class DirectoryController extends Controller
             "cover" => 'nullable|image',
             "category" => 'nullable',
             "address" => 'nullable',
-            "social-links" => 'nullable',
+            "social" => 'nullable',
         ];
         foreach (config("laravellocalization.supportedLocales") as $key => $lang) {
             // Rules
@@ -152,7 +152,7 @@ class DirectoryController extends Controller
             "name" => json_encode($langAttr["name"]),
             "description" => json_encode($langAttr["description"]),
             "address" => json_encode($langAttr["address"]),
-            "social-links" => json_encode($request["social-links"]),
+            "social" => json_encode($request["social"]),
             'img'=> $image,
             'cover'=> $cover,
             'phone'=>$request->phone,

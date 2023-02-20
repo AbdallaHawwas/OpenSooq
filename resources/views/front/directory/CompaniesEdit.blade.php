@@ -5,7 +5,7 @@
         margin-right: 2rem;
     }
 </style>
-<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.directory.store')}}">
+<form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.directory.update',$directory->id)}}">
    @csrf
     <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: rtl" style="">
         <div class="mb-5">
@@ -52,7 +52,11 @@
             <input type="text" name="{{app()->getlocale()}}[name]" value="{{json_decode($directory->name,true)[$lang]}}" class="form-control" placeholder="أدخل اسم متجرك أو مطعمك">
         </div>
         <div class="col-12 col-sm-4 mb-3">
+            @if($directory->category)
+            <livewire:category :subcategory_id="$directory->category->id" :category_id="$directory->category->category->id"/>
+            @else
             <livewire:category />
+            @endif
         </div>
         <div class="col-12 col-sm-4 mb-3">
             <span class="text-bold">السجل التجاري</span>
@@ -107,12 +111,15 @@
                 <span class="add-social" style="background-color:{{$settings->main_color()}}; border-radius:20px; font-size:14px; color:#fff;cursor: pointer;padding: 5px 11px;"><i class="fas fa-plus"></i></span>
             </div>
             <div class="links">
-                <input type="text" name="social-links[]" value="{{json_decode($directory->social-links,true)[0]}}" placeholder="facebook" class="form-control">
-                <input type="text" name="social-links[]" value="{{json_decode($directory->social-links,true)[1]}}" placeholder="whatsapp" class="form-control">
-                <input type="text" name="social-links[]" value="{{json_decode($directory->social-links,true)[2]}}" placeholder="website" class="form-control">
+                <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[0] : ''}}" placeholder="facebook" class="form-control">
+                <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[1]: ''}}" placeholder="whatsapp" class="form-control">
+                <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[2]: ''}}" placeholder="website" class="form-control">
+                @if($directory->social && json_decode($directory->social,true)[3])
+                    <input type="text" name="social[]" value="{{json_decode($directory->social,true)[3]}}" class="form-control">
+                @endif
             </div>
             <script>
-                const socialInput = document.querySelector("input[name=\"social-links[]\"]").cloneNode();
+                const socialInput = document.querySelector("input[name=\"social[]\"]").cloneNode();
                 socialInput.setAttribute("placeholder","other link");
                 document.querySelector(".add-social").addEventListener("click",()=>{
                     document.querySelector("div.links").appendChild(socialInput);

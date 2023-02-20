@@ -5,29 +5,29 @@
             display: none !important;
         }
 
-        .social-btn-sp #social-links {
+        .social-btn-sp #social {
             margin: 0 auto;
         }
 
-        .social-btn-sp #social-links ul li {
+        .social-btn-sp #social ul li {
             display: inline-block;
         }
 
-        .social-btn-sp #social-links ul li a {
+        .social-btn-sp #social ul li a {
             padding: 15px;
             margin: 1px;
             font-size: 30px;
         }
 
-        table #social-links {
+        table #social {
             display: inline-table;
         }
 
-        table #social-links ul li {
+        table #social ul li {
             display: inline;
         }
 
-        table #social-links ul li a {
+        table #social ul li a {
             padding: 5px;
             margin: 1px;
             font-size: 15px;
@@ -244,7 +244,7 @@
             <div class="modal-content" style="border-radius: 14px">
                 <div class="container my-4">
                     <div class="social-btn-sp text-center">
-                        <div id="social-links">
+                        <div id="social">
                             <ul>
                                 <li>
                                     <a href="{{ $shareButtons['facebook'] }}"

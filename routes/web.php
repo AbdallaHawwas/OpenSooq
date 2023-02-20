@@ -93,7 +93,7 @@ Route::group(
                 Route::get('stores/create',[DirectoryController::class,'frontCompaniesCreate'])->name("store.create");
                 Route::get('individuals/create',[DirectoryController::class,'frontIndividualsCreate'])->name("individual.create");
                 Route::get('edit/{id}',[DirectoryController::class,'frontEdit'])->name("directory.edit");
-                Route::get('show/{id}',[DirectoryController::class,'frontShow']);
+                Route::get('show/{id}',[DirectoryController::class,'frontShow'])->name("directory.show");
             });
             // Route::get('announcements/{announcement}', [FrontController::class,'announcement'])->name('announcement.show');
 

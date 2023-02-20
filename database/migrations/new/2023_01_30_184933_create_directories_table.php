@@ -25,8 +25,9 @@ return new class extends Migration
             $table->integer("user_id");
             $table->string("address")->nullable();
             $table->integer("type")->default(1); // 1 => Driver - 2 => Company
-            $table->string("social-links")->nullable();
+            $table->string("social")->nullable();
             $table->tinyInteger("active")->default(0);
+            $table->string("lang")->default('ar');
             $table->timestamps();
         });
     }

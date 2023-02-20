@@ -96,12 +96,12 @@
                 <span class="add-social" style="background-color:{{$settings->main_color()}}; border-radius:20px; font-size:14px; color:#fff;cursor: pointer;padding: 5px 11px;"><i class="fas fa-plus"></i></span>
             </div>
             <div class="links">
-                <input type="text" name="social-links[]" value="{{old("social-links[0]")}}" placeholder="facebook" class="form-control">
-                <input type="text" name="social-links[]" value="{{old("social-links[1]")}}" placeholder="whatsapp" class="form-control">
-                <input type="text" name="social-links[]" value="{{old("social-links[2]")}}" placeholder="website" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[0]")}}" placeholder="facebook" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[1]")}}" placeholder="whatsapp" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[2]")}}" placeholder="website" class="form-control">
             </div>
             <script>
-                const socialInput = document.querySelector("input[name=\"social-links[]\"]").cloneNode();
+                const socialInput = document.querySelector("input[name=\"social[]\"]").cloneNode();
                 socialInput.setAttribute("placeholder","other link");
                 document.querySelector(".add-social").addEventListener("click",()=>{
                     document.querySelector("div.links").appendChild(socialInput)

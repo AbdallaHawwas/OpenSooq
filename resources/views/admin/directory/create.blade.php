@@ -134,9 +134,9 @@
                     <span class="add-social" style="background-color:{{$settings->main_color()}}; border-radius:20px; font-size:14px; color:#fff;cursor: pointer;padding: 5px 11px;"><i class="fas fa-plus"></i></span>
                 </div>
                 <div class="links">
-                    <input type="text" name="social-links[]" placeholder="facebook" class="form-control">
-                    <input type="text" name="social-links[]" placeholder="whatsapp" class="form-control">
-                    <input type="text" name="social-links[]" placeholder="website" class="form-control">
+                    <input type="text" name="social[]" placeholder="facebook" class="form-control">
+                    <input type="text" name="social[]" placeholder="whatsapp" class="form-control">
+                    <input type="text" name="social[]" placeholder="website" class="form-control">
                 </div>
             </div>
             <div class="col-12 p-3">
@@ -190,7 +190,7 @@ readUrl(this);
 }
     imagePreview("cover","imgOutCover","remove-cover");
 // social
-const socialInput = document.querySelector("input[name=\"social-links[]\"]").cloneNode();
+const socialInput = document.querySelector("input[name=\"social[]\"]").cloneNode();
         // socialInput.setAttribute("placeholder","other link");
         // document.querySelector(".add-social").addEventListener("click",()=>{
         //     document.querySelector("div.links").appendChild(socialInput);

@@ -9,8 +9,8 @@
    @csrf
     <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: rtl" style="">
         <div class="mb-5">
-            <h2 style="color: {{$settings->main_color()}}"> أضف متجرك</h2>
-            قم بتعبئة جميع البيانات بالأسفل لإنشاء متجرك الخاص
+            <h2 style="color: {{$settings->main_color()}}"> {{__("lang.AddYourStore")}}</h2>
+            {{__("lang.addStorePlaceholder")}}
         </div>
         <div style="cursor:pointer; position:relative; margin-top:0 !important;">
             <div style="position: absolute;display:none;left: 0" id="remove-input"><i class="fas fa-times"></i></div>
@@ -48,34 +48,34 @@
     </div>
     <div class="row row-cols-3 data" style="direction: rtl">
         <div class="col-12 col-sm-4 mb-3">
-            <span class="text-bold">اسم المتجر</span>
-            <input type="text" name="{{app()->getlocale()}}[name]" value="{{old("name")}}" class="form-control" placeholder="أدخل اسم متجرك أو مطعمك">
+            <span class="text-bold">{{__("lang.Store Name")}}</span>
+            <input type="text" name="{{app()->getlocale()}}[name]" value="{{old("name")}}" class="form-control" placeholder="{{__("lang.namePlacholder")}}">
         </div>
         <div class="col-12 col-sm-4 mb-3">
             <livewire:category />
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <span class="text-bold">السجل التجاري</span>
+            <span class="text-bold">{{__("lang.Commercial Licence")}}</span>
             <input type="file" name="license"  id="license" class="form-control" accept="image/png, image/jpg, image/jpeg, image/webp">
         </div>
         <div class="col-12 col-sm-4 mb-3 d-flex flex-column justify-content-between">
             <livewire:city />
 
-            <label for="address" class="form-label">العنوان</label>
+            <label for="address" class="form-label">{{__("lang.Address")}}</label>
             <input type="text" name="{{app()->getlocale()}}[address]" value="{{old("address")}}" id="address" class="form-control">          
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <label for="description" class="form-label">وصف المتجر</label>
-            <textarea class="form-control" style="resize: none;" name="{{app()->getlocale()}}[description]" value="{{old("description")}}" id="description" placeholder="أدخل هنا وصف متجرك أو مطعمك" rows="6"></textarea>        
+            <label for="description" class="form-label">{{ __("lang.Store Desc")}} </label>
+            <textarea class="form-control" style="resize: none;" name="{{app()->getlocale()}}[description]" value="{{old("description")}}" id="description" placeholder="{{ __("lang.Store Desc Placeholder")}}" rows="6"></textarea>        
         </div>
         <div class="col-12 col-sm-4 mb-3">
-            <span class="text-bold">صورة غلاف</span>
+            <span class="text-bold"> {{__("lang.Cover")}}</span>
             <div class="h-75" style="border: #b7a5a5 3px dashed;color: #b7a5a5;">
                 <div style="position: absolute;display:none;left: 0" id="remove-cover"><i class="fas fa-times"></i></div>
                 <label style="text-align: center;width: 100%;font-size: 1.3rem;height: 100%;padding-bottom: 10%;cursor: pointer;" for="cover" class="form-label">                 
                     <div style="margin-top: 10%;">
                         <i class="fas fa-plus"></i> 
-                        <span style="display: block;">أضف هنا صورة غلاف</span>
+                        <span style="display: block;">{{__("lang.AddCover")}}</span>
                     </div>
                     <img id="imgOutCover" style="display: none;width:80%" src="{{asset('images/default/image.jpg')}}" alt="Default Image" width="150" height="150">
                 </label>
@@ -103,16 +103,16 @@
         </div>
         <div class="col-12 col-sm-4 mb-3 d-flex flex-column justify-content-center">
             <div class="mb-5">
-                <span class="text-bold me-3" >إضافة وسائل التواصل الإجتماعي</span>
+                <span class="text-bold me-3" >{{__("lang.socialMedia")}}</span>
                 <span class="add-social" style="background-color:{{$settings->main_color()}}; border-radius:20px; font-size:14px; color:#fff;cursor: pointer;padding: 5px 11px;"><i class="fas fa-plus"></i></span>
             </div>
             <div class="links">
-                <input type="text" name="social-links[]" value="{{old("social-links[0]")}}" placeholder="facebook" class="form-control">
-                <input type="text" name="social-links[]" value="{{old("social-links[1]")}}" placeholder="whatsapp" class="form-control">
-                <input type="text" name="social-links[]" value="{{old("social-links[2]")}}" placeholder="website" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[0]")}}" placeholder="facebook" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[1]")}}" placeholder="whatsapp" class="form-control">
+                <input type="text" name="social[]" value="{{old("social[2]")}}" placeholder="website" class="form-control">
             </div>
             <script>
-                const socialInput = document.querySelector("input[name=\"social-links[]\"]").cloneNode();
+                const socialInput = document.querySelector("input[name=\"social[]\"]").cloneNode();
                 socialInput.setAttribute("placeholder","other link");
                 document.querySelector(".add-social").addEventListener("click",()=>{
                     document.querySelector("div.links").appendChild(socialInput);
@@ -120,20 +120,22 @@
             </script>
         </div>
         <div class="col-12 col-sm-4">
-            <label for="phone">رقم الهاتف</label> 
+            <label for="phone">{{__("lang.phone")}}</label> 
             <input type="number" class="form-control mt-5" value="{{old("number")}}" required name="phone" id="phone">
         </div>
         <div class="col-12 col-sm-4 mb-3 d-flex flex-column justify-content-evenly" style="text-align: center;">
             <div class="form-check" >
                 <input name="policy" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" style="float: unset;margin: 5px;" required>
                 <label class="form-check-label" for="flexCheckDefault" >
-                  أوافق علي <a href="#" style="color:{{$settings->main_color()}} !important;">شروط وسياسة الإستخدام</a>
+                    {{__("lang.IAgreeTo")}} <a href="#" style="color:{{$settings->main_color()}} !important;">{{__("lang.Terms of Service")}}</a>
                 </label>
             </div>
             <input type="hidden" name="type" value="2">
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <input type="hidden" name="lang" value="{{app()->getlocale()}}">
+           
             <div>
-                <button class="btn btn-success" id="submitEvaluation" style="padding: 0.5rem 3rem;background-color: {{$settings->main_color()}};">تأكيد المعلومات و إنشاء المتجر</button>
+                <button class="btn btn-success" id="submitEvaluation" style="padding: 0.5rem 3rem;background-color: {{$settings->main_color()}};">{{ __("lang.Confirmandcreatestore") }}</button>
             </div>
         </div>
     </div>
