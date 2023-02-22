@@ -42,13 +42,13 @@ class DirectoryController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-
+        dd($data);
         $rules = [
             "phone" => 'required|numeric',
             "type" => 'required',
             "img" => 'nullable|image',
             "cover" => 'nullable|image',
-            "category" => 'nullable',
+            "category_id" => 'nullable',
             "address" => 'nullable',
             "social" => 'nullable',
         ];
@@ -77,7 +77,7 @@ class DirectoryController extends Controller
             'img'=> $image,
             'cover'=> $cover,
             'phone'=>$request->phone,
-            "city" => $request->City,
+            "city_id" => $request->City,
             "type"=>$request->type,
             "active"=> $request->active ?? 0,
             "user_id" => $request->user_id
@@ -127,7 +127,7 @@ class DirectoryController extends Controller
             "type" => 'required',
             "img" => 'nullable|image',
             "cover" => 'nullable|image',
-            "category" => 'nullable',
+            "category_id" => 'nullable',
             "address" => 'nullable',
             "social" => 'nullable',
         ];
@@ -156,7 +156,7 @@ class DirectoryController extends Controller
             'img'=> $image,
             'cover'=> $cover,
             'phone'=>$request->phone,
-            "city" => $request->City,
+            "city_id" => $request->City,
             "type"=>$request->type,
             "active"=> $request->active ?? 0,
             "user_id" => $request->user_id

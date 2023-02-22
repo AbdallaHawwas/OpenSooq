@@ -32,7 +32,7 @@
             {{json_decode($provider->description,true)[$lang]}}            
             </div>
             <div class="number">{{__("lang.phone")}}: {{$provider->phone}}</div>
-            <div class="city">{{__("lang.Country")}}: </div>
+            <div class="city">{{__("lang.Country")}}: {{__("lang.Country")}}: {{ $provider->city ? $provider->city->country->name . ' - ' . $provider->city->name : '' }}</div>
             <div class="address">{{__("lang.Address")}} : {{json_decode($provider->address,true)[$lang]}}</div>
     <style>
         .store-data > * {

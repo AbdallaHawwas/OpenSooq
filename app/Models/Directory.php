@@ -20,8 +20,13 @@ class Directory extends Model
         "user_id"
     ];
     
-    public function city(){
-        return $this->hasOne(City::class, 'city');
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function user(){

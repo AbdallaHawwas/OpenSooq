@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text("description");
             $table->string("img")->nullable();
             $table->string("cover")->nullable();
-            $table->integer("category")->nullable();
+            $table->integer("category_id")->nullable();
             $table->integer("phone");
-            $table->integer("city");
+            $table->integer("city_id");
             $table->integer("user_id");
             $table->string("address")->nullable();
             $table->integer("type")->default(1); // 1 => Driver - 2 => Company
