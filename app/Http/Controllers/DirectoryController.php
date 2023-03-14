@@ -24,8 +24,8 @@ class DirectoryController extends Controller
     }
     
     public function frontIndividualsIndex(){
-        $Individuals = Directory::where("type",1);
-        return view("front.directory.Individualsindex",compact("Individuals"));
+        $individuals = Directory::where("type",1)->get();
+        return view("front.directory.Individualsindex",compact("individuals"));
     }
 
     public function create(){
@@ -42,7 +42,6 @@ class DirectoryController extends Controller
 
     public function store(Request $request){
         $data = $request->all();
-        dd($data);
         $rules = [
             "phone" => 'required|numeric',
             "type" => 'required',
@@ -68,19 +67,21 @@ class DirectoryController extends Controller
 
         $cover = $request->cover ? $request->cover->hashName() : null;
         $cover ? $request->cover->storeAs('/public/uploads/directory',$cover): "";
-
+                
         Directory::create([
-            "name" => json_encode($langAttr["name"]),
-            "description" => json_encode($langAttr["description"]),
-            "address" => json_encode($langAttr["address"]),
-            "social" => json_encode($request["social"]),
-            'img'=> $image,
+            "name"=>json_encode($langAttr["name"]),
+            "description"=>json_encode($langAttr["description"]),
+            "address"=>json_encode($langAttr["address"]),
+            "social"=>json_encode($request["social"]),
+            'img'=>$image,
             'cover'=> $cover,
             'phone'=>$request->phone,
-            "city_id" => $request->City,
+            "city_id"=>$request->City,
+            "category_id"=>$request->Category ?? null,
             "type"=>$request->type,
-            "active"=> $request->active ?? 0,
-            "user_id" => $request->user_id
+            "active"=>$request->active ?? 0,
+            "user_id"=>$request->user_id,
+            "lang"=>$request->lang
         ]);
         
         flash()->success('تم إضافة عنصر الدليل المجاني بنجاح', 'عملية ناجحة');

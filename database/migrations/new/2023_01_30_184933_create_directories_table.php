@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer("type")->default(1); // 1 => Driver - 2 => Company
             $table->string("social")->nullable();
             $table->tinyInteger("active")->default(0);
-            $table->string("lang")->default('ar');
+            $table->string("lang");
             $table->timestamps();
         });
     }

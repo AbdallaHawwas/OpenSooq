@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
 {{-- Add Button --}}
-<div style="margin-bottom: 5rem;"><a href="{{route("front.store.create")}}" class="btn btn-primary" style="@if(app()->getlocale() == 'ar') float: left @else float: right @endif;margin: 2rem 0 0 2rem">{{__('lang.AddYourCompanyToFreeDirectory')}}</a></div>
+@if(Auth::user())<div style="margin-bottom: 5rem;"><a href="{{route("front.store.create")}}" class="btn btn-primary" style="@if(app()->getlocale() == 'ar') float: left @else float: right @endif;margin: 2rem 0 0 2rem">{{__('lang.AddYourCompanyToFreeDirectory')}}</a></div>@endif
 <div class="container pt-3">
     @foreach ($companies as $company)
         

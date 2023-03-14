@@ -17,7 +17,10 @@ class Directory extends Model
         "city",
         "address",
         "type",
-        "user_id"
+        "user_id",
+        "category_id",
+        "city_id",
+        "lang"
     ];
     
     public function city()

@@ -2,7 +2,7 @@
 @section('content')
 
 @if(Auth()->user()->id == $provider->user_id)
-    <div style="margin-bottom: 5rem;"><a href="{{route("front.directory.edit",$provider->id)}}" class="btn btn-primary" style="@if(app()->getlocale() == 'ar') float: left @else float: right @endif;margin: 2rem 0 0 2rem">{{__("lang.EditProfile")}}</a></div>
+    <div style="margin-bottom: 5rem;"><a href="{{route("front.directory.edit",$provider->id)}}" class="btn btn-primary" style="@if(app()->getlocale() == 'ar') float: left @else float: right @endif;margin: 2rem 0 0 2rem">@if($provider->type == 2){{__("lang.EditYourStore")}} @else {{__("lang.EditYourPage")}} @endif</a></div>
 @endif
 <div class="container pt-3">        
     <div class="store row pt-3">
@@ -32,8 +32,10 @@
             {{json_decode($provider->description,true)[$lang]}}            
             </div>
             <div class="number">{{__("lang.phone")}}: {{$provider->phone}}</div>
-            <div class="city">{{__("lang.Country")}}: {{__("lang.Country")}}: {{ $provider->city ? $provider->city->country->name . ' - ' . $provider->city->name : '' }}</div>
-            <div class="address">{{__("lang.Address")}} : {{json_decode($provider->address,true)[$lang]}}</div>
+            <div class="city">{{__("lang.Country")}}: {{ $provider->city ? $provider->city->country->name . ' - ' . $provider->city->name : '' }}</div>
+            @if($provider->type == 2)
+                <div class="address">{{__("lang.Address")}} : {{json_decode($provider->address,true)[$lang]}}</div>
+            @endif
     <style>
         .store-data > * {
         font-size: 16px;

@@ -8,7 +8,7 @@
 <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.directory.update',$directory->id)}}">
     @csrf
     @method("PUT")
-     <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: rtl" style="">
+     <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: @if(app()->getlocale() == "ar") rtl @else ltr @endif">
          <div class="mb-5">
              <h2 style="color: {{$settings->main_color()}}"> {{__("lang.EditYourStore")}}</h2>
              {{__("lang.EditStorePlaceholder")}}
@@ -47,13 +47,13 @@
              </script>
          </div>
      </div>
-     <div class="row row-cols-3 data" style="direction: rtl">
+     <div class="row row-cols-3 data" style="direction:@if(app()->getlocale() == "ar") rtl @else ltr @endif">
          <div class="col-12 col-sm-4 mb-3">
              <span class="text-bold">{{__("lang.Store Name")}}</span>
-             <input type="text" name="{{app()->getlocale()}}[name]" value="{{json_decode($directory->name,true)[$directory->lang]}}" class="form-control" placeholder="{{__("lang.namePlacholder")}}">
+             <input type="text" name="{{app()->getlocale()}}[name]" required value="{{json_decode($directory->name,true)[app()->getlocale()] ?? json_decode($directory->name,true)[$directory->lang]}}" class="form-control" placeholder="{{__("lang.namePlacholder")}}">
          </div>
          <div class="col-12 col-sm-4 mb-3">
-            <livewire:category />
+            <livewire:category :subcategory_id="$directory->category->id ?? null" :category_id="$directory->category->category->id ?? null" :catAttributes="$directory" />
    
          </div>
          <div class="col-12 col-sm-4 mb-3">
@@ -64,11 +64,11 @@
             <livewire:city :country_id="$directory->city->country_id" :city_id="$directory->city->id" />
  
              <label for="address" class="form-label">{{__("lang.Address")}}</label>
-             <input type="text" name="{{app()->getlocale()}}[address]" value="{{json_decode($directory->address,true)[$directory->lang]}}" id="address" class="form-control">          
+             <input type="text" name="{{app()->getlocale()}}[address]" value="{{json_decode($directory->address,true)[app()->getlocale()] ?? json_decode($directory->address,true)[$directory->lang]}}" id="address" class="form-control">          
          </div>
          <div class="col-12 col-sm-4 mb-3">
              <label for="description" class="form-label">{{ __("lang.Store Desc")}} </label>
-             <textarea class="form-control" style="resize: none;" name="{{app()->getlocale()}}[description]" value="value="{{json_decode($directory->description,true)[$directory->lang]}}"" id="description" placeholder="{{ __("lang.Store Desc Placeholder")}}" rows="6"></textarea>        
+             <textarea class="form-control" style="resize: none;" name="{{app()->getlocale()}}[description]" value="{{json_decode($directory->description,true)[app()->getlocale()] ?? json_decode($directory->description,true)[$directory->lang]}}" id="description" placeholder="{{ __("lang.Store Desc Placeholder")}}" rows="6"></textarea>        
          </div>
          <div class="col-12 col-sm-4 mb-3">
              <span class="text-bold"> {{__("lang.Cover")}}</span>
@@ -112,7 +112,8 @@
                 <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[0] : ''}}" placeholder="facebook" class="form-control">
                 <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[1]: ''}}" placeholder="whatsapp" class="form-control">
                 <input type="text" name="social[]" value="{{$directory->social ? json_decode($directory->social,true)[2]: ''}}" placeholder="website" class="form-control">
-                @if(count(json_decode($directory->social,true)) > 3)
+                {{-- {{dd(json_decode($directory,true))}} --}}
+                @if($directory->social && count(json_decode($directory->social,true)) > 3)
                     <input type="text" name="social[]" value="{{json_decode($directory->social,true)[3]}}" class="form-control">
                 @endif
              </div>
@@ -139,7 +140,7 @@
              <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
              <input type="hidden" name="lang" value="{{app()->getlocale()}}">
              <div>
-                 <button class="btn btn-success" id="submitEvaluation" style="padding: 0.5rem 3rem;background-color: {{$settings->main_color()}};">{{ __("lang.Confirmandcreatestore") }}</button>
+                 <button class="btn btn-success" id="submitEvaluation" style="padding: 0.5rem 3rem;background-color: {{$settings->main_color()}};">{{ __("lang.EditYourStore") }}</button>
              </div>
          </div>
      </div>

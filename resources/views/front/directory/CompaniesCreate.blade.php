@@ -7,7 +7,7 @@
 </style>
 <form id="validate-form" class="row" enctype="multipart/form-data" method="POST" action="{{route('admin.directory.store')}}">
    @csrf
-    <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: rtl" style="">
+    <div class="mx-5 mt-5 mb-3 d-flex flex-wrap justify-content-around flex-row" style="direction: @if(app()->getlocale() == "ar") rtl @else ltr @endif" style="">
         <div class="mb-5">
             <h2 style="color: {{$settings->main_color()}}"> {{__("lang.AddYourStore")}}</h2>
             {{__("lang.addStorePlaceholder")}}
@@ -46,10 +46,10 @@
             </script>
         </div>
     </div>
-    <div class="row row-cols-3 data" style="direction: rtl">
+    <div class="row row-cols-3 data" style="direction: @if(app()->getlocale() == "ar") rtl @else ltr @endif">
         <div class="col-12 col-sm-4 mb-3">
             <span class="text-bold">{{__("lang.Store Name")}}</span>
-            <input type="text" name="{{app()->getlocale()}}[name]" value="{{old("name")}}" class="form-control" placeholder="{{__("lang.namePlacholder")}}">
+            <input type="text" name="{{app()->getlocale()}}[name]" required value="{{old("name")}}" class="form-control" placeholder="{{__("lang.namePlacholder")}}">
         </div>
         <div class="col-12 col-sm-4 mb-3">
             <livewire:category />
